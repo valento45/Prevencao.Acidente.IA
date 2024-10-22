@@ -23,5 +23,12 @@ namespace Prevencao.Acidente.IA.Core.Models.PreventionAcidente
             Clima = new CondicaoClimatica();
             Via = new Via();    
         }
+
+
+        public Acident(CondicaoClimatica condicaoClimatica, Via via)
+        {
+            Clima = condicaoClimatica;
+            Via = via;
+        }
     }
 }

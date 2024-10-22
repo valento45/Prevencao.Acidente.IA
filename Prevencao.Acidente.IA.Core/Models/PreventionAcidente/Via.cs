@@ -14,5 +14,11 @@ namespace Prevencao.Acidente.IA.Core.Models.PreventionAcidente
         public bool HasAcostamento { get; set; }
         public int LimiteVelocidade { get; set; }
 
+
+
+        public string Logradouro { get; set; }
+        public string Cidade { get; set; }
+        public string UF { get; set; }
+
     }
 }

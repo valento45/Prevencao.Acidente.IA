@@ -14,15 +14,20 @@ namespace Prevencao.Acidente.IA.Core.MachineLearning
     {
         private MLContext mlContext { get; set; }
 
+        public PreventionAcidenteMachineLearning()
+        {
+
+            mlContext = CreateContext();
+        }
+
         public MLContext CreateContext()
         {
-            mlContext = new MLContext();
-            return mlContext;
+           return new MLContext();      
         }
 
 
         /// <summary>
-        /// 1.Specify data preparation and model training pipeline
+        /// 1. Specify data preparation and model training pipeline
         /// 2. Train model
         /// 3. Make a prediction
         /// 4. Predict
@@ -36,28 +41,23 @@ namespace Prevencao.Acidente.IA.Core.MachineLearning
         {
 
             var pipeline = mlContext.Transforms.Concatenate("Features", new[] { "Size" })
-                .Append(mlContext.Regression.Trainers.Sdca(labelColumnName: "Price", maximumNumberOfIterations: 100));
+                .Append(mlContext.Regression.Trainers.Sdca(labelColumnName: "PercentePossivelAcidente", maximumNumberOfIterations: 100));
 
 
             var model = pipeline.Fit(trainingData);
 
 
-            var climaVia = new Acident();
+            var climaVia = new Acident(clima, via);
 
             var resultPredict = mlContext.Model.CreatePredictionEngine<Acident, AcidentePrediction>(model).Predict(climaVia);
             return resultPredict;
         }
 
 
-
-
-
-
         public IDataView BuildTraining(IEnumerable<Prevencao.Acidente.IA.Core.Models.PreventionAcidente.Acident> acidentes)
         {
             return Training(mlContext, acidentes);
         }
-
 
 
         private IDataView Training(MLContext mlContext, IEnumerable<Prevencao.Acidente.IA.Core.Models.PreventionAcidente.Acident> acidentes)
