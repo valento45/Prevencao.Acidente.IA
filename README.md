@@ -1,6 +1,3 @@
-# Prevencao.Acidente.IA
-
-
 # Previsão de Acidentes de Trânsito
 
 - Objetivo: Prever acidentes de trânsito com base em fatores como clima, horário, e histórico de acidentes.
